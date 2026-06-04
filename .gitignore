@@ -1,0 +1,4 @@
+#ignoring directories
+.vs/
+bin/
+bin-int/

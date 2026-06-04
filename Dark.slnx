@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+  </Configurations>
+  <Project Path="D:/DarkEngine/Dark/SandBox/SandBox.vcxproj" Id="a96d2ac3-14b9-4bf5-960c-86735ca0ec0a" />
+  <Project Path="D:/DarkEngine/Dark/Dark/Dark.vcxproj" Id="14fad2a9-6d7f-4ffb-9561-96a81d13acb6" />
+</Solution>

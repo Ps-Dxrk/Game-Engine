@@ -2,10 +2,10 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>D:\GameEngine\GameEngine\bin\Debug\x64\GameEngine\GameEngine.dll</FullPath>
+      <FullPath>D:\DarkEngine\Dark\bin\Debug\x64\Dark\Dark.dll</FullPath>
     </ProjectOutput>
     <ProjectOutput>
-      <FullPath>D:\GameEngine\GameEngine\bin\Debug\x64\SandBox\SandBox.exe</FullPath>
+      <FullPath>D:\DarkEngine\Dark\bin\Debug\x64\SandBox\SandBox.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />
