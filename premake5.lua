@@ -16,12 +16,14 @@ workspace "Dark"
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 IncludeDir = {}
+IncludeDir["spdlog"] = "Dark/vendor/spdlog/include"
 IncludeDir["GLFW"] = "Dark/vendor/GLFW/include"
 IncludeDir["GLAD"] = "Dark/vendor/GLAD/include"
+IncludeDir["ImGui"] = "Dark/vendor/ImGui"
 
 include "Dark/vendor/GLFW"
 include "Dark/vendor/GLAD"
-
+include "Dark/vendor/ImGui"
 
 project "Dark" 
     location "Dark"
@@ -41,14 +43,16 @@ project "Dark"
 
     includedirs {
         "%{prj.name}/src",
-        "%{prj.name}/vendor/spdlog/include",
+        "%{IncludeDir.spdlog}",
         "%{IncludeDir.GLFW}",
-        "%{IncludeDir.GLAD}"
+        "%{IncludeDir.GLAD}",
+        "%{IncludeDir.ImGui}"
     }
 
     links {
         "GLFW",
         "GLAD",
+        "ImGui",
         "opengl32.lib"
     }
 
@@ -67,6 +71,15 @@ project "Dark"
         postbuildcommands {
             ("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox")
         }
+
+        filter { "system:windows", "configurations:Debug" }
+            buildoptions "/MDd"
+
+        filter { "system:windows", "configurations:Release" }
+            buildoptions "/MD"
+        
+        filter { "system:windows", "configurations:Dist" }
+            buildoptions "/MD"
 
     filter "configurations:Debug"
         defines "DARK_DEBUG"
@@ -111,6 +124,15 @@ project "Sandbox"
             "DARK_WINDOWS_BUILD",
             "DARK_PLATFORM_WINDOWS"
         }
+
+        filter { "system:windows", "configurations:Debug" }
+            buildoptions "/MDd"
+
+        filter { "system:windows", "configurations:Release" }
+            buildoptions "/MD"
+        
+        filter { "system:windows", "configurations:Dist" }
+            buildoptions "/MD"
 
     filter "configurations:Debug"
         defines "DARK_DEBUG"

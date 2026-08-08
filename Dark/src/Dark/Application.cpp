@@ -1,7 +1,5 @@
 #include "dpch.h"
 
-#include "Window.h"
-
 #include "Application.h"
 
 #include "Dark/Events/ApplicationEvent.h"
@@ -10,7 +8,13 @@ namespace Dark {
 
 #define BIND_EVENT_FN(x) std::bind(&x, this, std::placeholders::_1)
 
+	Application* Application::s_Instance{ nullptr };
+
+
 	Application::Application() {
+
+		DARK_CORE_ASSERT(!s_Instance, "Application Already Exists");
+		s_Instance = this;
 
 		//creating window
 		m_Window = std::unique_ptr<Window>(Window::Create());
@@ -65,9 +69,11 @@ namespace Dark {
 	//layer stack
 	void Application::PushLayer(Layer* layer) {
 		m_LayerStack.PushLayer(layer);
+		layer->OnAttach();
 	}
 	void Application::PushOverlay(Layer* layer) {
 		m_LayerStack.PushOverlay(layer);
+		layer->OnAttach();
 	}
 	//TODO: Pop wrappers for the LayerStack
 

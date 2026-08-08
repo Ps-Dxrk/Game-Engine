@@ -11,7 +11,7 @@ int main(int argc, char** argv) {
 	DARK_CORE_WARN("Initialized!");
 	DARK_CLIENT_WARN("Initialized!");
 
-	auto app{ Dark::CreateApplication() };
+	Dark::Application* app{ Dark::CreateApplication() };
 	app->Run();
 	delete app;
 
