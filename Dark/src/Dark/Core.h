@@ -9,3 +9,13 @@
 #else
 	#error DARK ENGINE IS ONLY SUPPORTED FOR WINDOWS!
 #endif
+
+#ifdef DARK_ENABLE_ASSERTS
+	#define DARK_CORE_ASSERT(x, ...) { if(!(x)) {DARK_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); }}
+	#define DARK_CLIENT_ASSERT(x, ...) { if(!(x)) { DARK_CLIENT_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); }}
+#else
+	#define DARK_CORE_ASSERT(x, ...)
+	#define DARK_CLIENT_ASSERT(x, ...)
+#endif
+
+#define BIT(x) (1 << x)

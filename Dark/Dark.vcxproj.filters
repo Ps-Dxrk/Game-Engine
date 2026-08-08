@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Dark">
+      <UniqueIdentifier>{0705847C-F33B-850D-9C28-6B10883E010F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Dark\Events">
+      <UniqueIdentifier>{0BE36E4A-7798-E73F-008D-E1166C41DE43}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Dark\Platform">
+      <UniqueIdentifier>{3BD9D1BD-A799-4DF4-70D4-9671DC5392D0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Dark\Platform\Windows">
+      <UniqueIdentifier>{758E56D9-E1FA-11D4-AAEE-A931161A343C}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Dark.h" />
+    <ClInclude Include="src\Dark\Application.h">
+      <Filter>Dark</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Dark\Core.h">
+      <Filter>Dark</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Dark\EntryPoint.h">
+      <Filter>Dark</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Dark\Events\ApplicationEvent.h">
+      <Filter>Dark\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Dark\Events\Event.h">
+      <Filter>Dark\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Dark\Events\KeyEvent.h">
+      <Filter>Dark\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Dark\Events\MouseEvent.h">
+      <Filter>Dark\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Dark\Layer.h">
+      <Filter>Dark</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Dark\LayerStack.h">
+      <Filter>Dark</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Dark\Log.h">
+      <Filter>Dark</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Dark\Platform\Windows\WindowsWindow.h">
+      <Filter>Dark\Platform\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Dark\Window.h">
+      <Filter>Dark</Filter>
+    </ClInclude>
+    <ClInclude Include="src\dpch.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Dark\Application.cpp">
+      <Filter>Dark</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Dark\Layer.cpp">
+      <Filter>Dark</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Dark\LayerStack.cpp">
+      <Filter>Dark</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Dark\Log.cpp">
+      <Filter>Dark</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Dark\Platform\Windows\WindowsWindow.cpp">
+      <Filter>Dark\Platform\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="src\dpch.cpp" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,26 @@
+#pragma once
+
+#ifdef DARK_PLATFORM_WINDOWS
+#include <Windows.h>
+#endif
+
+#include <iostream>
+#include <functional>
+#include <utility>
+#include <algorithm>
+#include <memory>
+
+#include "Dark/Log.h"
+
+#include <stack>
+#include <queue>
+#include <vector>
+#include <map>
+#include <set>
+#include <unordered_map>
+#include <unordered_set>
+#include <array>
+#include <string>
+#include <sstream>
+#include <fstream>
+#include <cstdint>

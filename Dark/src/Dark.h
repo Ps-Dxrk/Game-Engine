@@ -1,10 +1,15 @@
 #pragma once
 
-//To be Used by Applications using this Dark Engine!
+//To be Included by Applications using this Dark Engine/ Or by the client!
+
+#include "dpch.h"
 
 #include "Dark/Application.h"
+#include "Dark/Layer.h"
+#include "Dark/LayerStack.h"
+#include "Dark/Log.h"
 #include "Dark/Core.h"
 
-//--Entry Point--
+/*--Entry Point--*/
 #include "Dark/EntryPoint.h"
-//---------------
+/*---------------*/

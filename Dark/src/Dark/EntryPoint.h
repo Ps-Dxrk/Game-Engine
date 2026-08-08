@@ -5,7 +5,12 @@
 extern Dark::Application* Dark::CreateApplication();
 
 int main(int argc, char** argv) {
-		
+
+	Dark::Log::Init();
+	
+	DARK_CORE_WARN("Initialized!");
+	DARK_CLIENT_WARN("Initialized!");
+
 	auto app{ Dark::CreateApplication() };
 	app->Run();
 	delete app;
