@@ -29,8 +29,6 @@ namespace Dark {
 		KeyPressedEvent(int KeyCode, int repeatCount)
 			: KeyEvent(KeyCode), m_RepeatCount(repeatCount) { }
 
-		EVENT_CLASS_TYPE(KeyPressed);
-
 		inline int GetRepeatCount() const { return m_RepeatCount; }
 
 		std::string ToString() const override {
@@ -40,6 +38,8 @@ namespace Dark {
 
 			return ss.str();
 		}
+
+		EVENT_CLASS_TYPE(KeyPressed);
 
 	};
 
@@ -58,6 +58,24 @@ namespace Dark {
 		}
 
 		EVENT_CLASS_TYPE(KeyReleased);
+
+	};
+
+	class DARK_API KeyTypedEvent : public KeyEvent {
+
+	public:
+		KeyTypedEvent(int keycode)
+			: KeyEvent(keycode) { }
+
+		std::string ToString() const override {
+			std::stringstream ss;
+
+			ss << "KeyPressedEvent: " << m_KeyCode;
+
+			return ss.str();
+		}
+
+		EVENT_CLASS_TYPE(KeyTyped);
 
 	};
 

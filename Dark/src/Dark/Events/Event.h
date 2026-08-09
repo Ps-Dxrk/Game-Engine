@@ -16,7 +16,7 @@ namespace Dark {
 		WindowResize, WindowClose, WindowMoved, WindowFocus, WindowLostFocus, //Window Event Types
 		AppTick, AppRender, AppUpdate, //Application Event types
 		MouseButtonPressed, MouseButtonReleased, MouseMoved, MouseScrolled, //Mouse Event Types
-		KeyPressed, KeyReleased //KeyBoard key Event Types
+		KeyPressed, KeyReleased, KeyTyped //KeyBoard key Event Types
 
 	};
 

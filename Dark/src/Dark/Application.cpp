@@ -4,10 +4,9 @@
 
 #include "Dark/Events/ApplicationEvent.h"
 
+#include <glad/glad.h>
+
 namespace Dark {
-
-#define BIND_EVENT_FN(x) std::bind(&x, this, std::placeholders::_1)
-
 	Application* Application::s_Instance{ nullptr };
 
 
@@ -18,7 +17,7 @@ namespace Dark {
 
 		//creating window
 		m_Window = std::unique_ptr<Window>(Window::Create());
-		m_Window->SetEventCallBackFn(BIND_EVENT_FN(Application::OnEvent));
+		m_Window->SetEventCallBackFn(DARK_BIND_EVENT_FN(Application::OnEvent));
 
 	}
 
@@ -29,7 +28,9 @@ namespace Dark {
 	void Application::Run() {
 
 		while(m_Running) {
-			m_Window->OnUpdate();
+
+			glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+			glClear(GL_COLOR_BUFFER_BIT);
 
 			//layer update
 			const auto& layers{ m_LayerStack.GetLayers() };
@@ -38,6 +39,9 @@ namespace Dark {
 					layers[i]->OnUpdate();
 				}
 			}
+
+			//window update
+			m_Window->OnUpdate();
 		}
 
 	}
@@ -45,7 +49,7 @@ namespace Dark {
 	//Event
 	void Application::OnEvent(Event& e) {
 
-		EventDispatcher dispatcher(e); //event dispatcher
+		EventDispatcher dispatcher{ e }; //event dispatcher
 
 		//Window closing event dispatch
 		dispatcher.Dispatch<WindowCloseEvent>([this](const WindowCloseEvent& e) -> bool {

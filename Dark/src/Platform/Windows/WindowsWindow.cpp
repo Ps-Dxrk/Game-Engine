@@ -102,6 +102,15 @@ namespace Dark {
 
 		});
 
+		glfwSetCharCallback(m_Window, [](GLFWwindow* window, unsigned int character) {
+
+			WindowData& data{ *(WindowData*)(glfwGetWindowUserPointer(window)) };
+
+			KeyTypedEvent event(character);
+			data.CallBackFn(event);
+
+		});
+
 		glfwSetMouseButtonCallback(m_Window, [](GLFWwindow* window, int button, int action, int mod) {
 			
 			WindowData& data{ *(WindowData*)(glfwGetWindowUserPointer(window)) };
@@ -113,7 +122,7 @@ namespace Dark {
 					break;
 				}
 				case GLFW_RELEASE: {
-					MouseButtonReleaseEvent event(button);
+					MouseButtonReleasedEvent event(button);
 					data.CallBackFn(event);
 					break;
 				}

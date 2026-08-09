@@ -55,7 +55,7 @@ namespace Dark {
 
 	};
 
-	//Can't Create a Constructor on his own, must be inherited by the ButtonPress event and release event classes
+	//Can't Create a Constructor on its own, must be inherited by the ButtonPress event and release event classes
 	class DARK_API MouseButtonEvent : public Event {
 	protected:
 
@@ -91,10 +91,10 @@ namespace Dark {
 
 	};
 
-	class DARK_API MouseButtonReleaseEvent : public MouseButtonEvent {
+	class DARK_API MouseButtonReleasedEvent : public MouseButtonEvent {
 
 	public:
-		MouseButtonReleaseEvent(int b)
+		MouseButtonReleasedEvent(int b)
 			: MouseButtonEvent(b) {}
 
 		EVENT_CLASS_TYPE(MouseButtonReleased);
