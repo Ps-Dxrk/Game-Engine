@@ -10,6 +10,10 @@
 	#error DARK ENGINE IS ONLY SUPPORTED FOR WINDOWS!
 #endif
 
+#ifdef DARK_DEBUG
+	#define DARK_ENABLE_ASSERTS
+#endif
+
 #ifdef DARK_ENABLE_ASSERTS
 	#define DARK_CORE_ASSERT(x, ...) { if(!(x)) {DARK_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); }}
 	#define DARK_CLIENT_ASSERT(x, ...) { if(!(x)) { DARK_CLIENT_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); }}

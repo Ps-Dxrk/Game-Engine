@@ -15,20 +15,26 @@ workspace "Dark"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
+startproject "Sandbox"
+
 IncludeDir = {}
 IncludeDir["spdlog"] = "Dark/vendor/spdlog/include"
 IncludeDir["GLFW"] = "Dark/vendor/GLFW/include"
 IncludeDir["GLAD"] = "Dark/vendor/GLAD/include"
 IncludeDir["ImGui"] = "Dark/vendor/ImGui"
 
-include "Dark/vendor/GLFW"
-include "Dark/vendor/GLAD"
-include "Dark/vendor/ImGui"
+group "Dependencies"
+    include "Dark/vendor/GLFW"
+    include "Dark/vendor/GLAD"
+    include "Dark/vendor/ImGui"
+group ""
+
 
 project "Dark" 
     location "Dark"
     kind "SharedLib"
     language "C++"
+    staticruntime "off"
 
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -58,7 +64,6 @@ project "Dark"
 
     filter "system:windows"
         cppdialect "C++23"
-        staticruntime "On"
         systemversion "latest"
 
         defines {
@@ -69,34 +74,29 @@ project "Dark"
         }
 
         postbuildcommands {
-            ("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox")
+            ("{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/Sandbox/\"")
         }
-
-        filter { "system:windows", "configurations:Debug" }
-            buildoptions "/MDd"
-
-        filter { "system:windows", "configurations:Release" }
-            buildoptions "/MD"
-        
-        filter { "system:windows", "configurations:Dist" }
-            buildoptions "/MD"
 
     filter "configurations:Debug"
         defines "DARK_DEBUG"
+        runtime "Debug"
         symbols "On"
 
     filter "configurations:Release"
         defines "DARK_RELEASE"
+        runtime "Release"
         optimize "On"
 
     filter "configurations:Dist"
         defines "DARK_DIST"
+        runtime "Release"
         optimize "On"
 
 project "Sandbox"
     location "Sandbox"
     kind "ConsoleApp"
     language "C++"
+    staticruntime "off"
 
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -117,7 +117,6 @@ project "Sandbox"
 
     filter "system:windows"
         cppdialect "C++23"
-        staticruntime "On"
         systemversion "latest"
 
         defines {
@@ -125,23 +124,17 @@ project "Sandbox"
             "DARK_PLATFORM_WINDOWS"
         }
 
-        filter { "system:windows", "configurations:Debug" }
-            buildoptions "/MDd"
-
-        filter { "system:windows", "configurations:Release" }
-            buildoptions "/MD"
-        
-        filter { "system:windows", "configurations:Dist" }
-            buildoptions "/MD"
-
     filter "configurations:Debug"
         defines "DARK_DEBUG"
+        runtime "Debug"
         symbols "On"
 
     filter "configurations:Release"
         defines "DARK_RELEASE"
+        runtime "Release"
         optimize "On"
 
     filter "configurations:Dist"
         defines "DARK_DIST"
+        runtime "Release"
         optimize "On"
