@@ -6,6 +6,8 @@
 
 #include <glad/glad.h>
 
+#include "Dark/Input.h"
+
 namespace Dark {
 	Application* Application::s_Instance{ nullptr };
 

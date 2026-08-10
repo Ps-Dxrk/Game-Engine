@@ -5,6 +5,8 @@
 
 #include "Dark/Application.h"
 
+#include "Dark/Input.h"
+
 //TEMPORARY
 #include <GLFW/glfw3.h>
 #include <glad/glad.h>
@@ -117,10 +119,10 @@ namespace Dark {
 	{
 		ImGuiIO& io{ ImGui::GetIO() };
 
-		ImGuiKey imgui_key{ ImGuiLayer::glfwKeyToImGuiKey(e.GetKeyCode()) };
+		ImGuiKey imgui_key{ ImGuiLayer::DKKeyToImGuiKey(e.GetKeyCode()) };
 		io.AddKeyEvent(imgui_key, true);
 
-		ImGuiKey imgui_mod_key{ ImGuiLayer::glfwKeyToImGuiModKey(e.GetKeyCode()) };
+		ImGuiKey imgui_mod_key{ ImGuiLayer::DKKeyToImGuiModKey(e.GetKeyCode()) };
 		io.AddKeyEvent(imgui_mod_key, true);
 
 		return false;
@@ -130,10 +132,10 @@ namespace Dark {
 	{
 		ImGuiIO& io{ ImGui::GetIO() };
 
-		ImGuiKey imgui_key{ ImGuiLayer::glfwKeyToImGuiKey(e.GetKeyCode()) };
+		ImGuiKey imgui_key{ ImGuiLayer::DKKeyToImGuiKey(e.GetKeyCode()) };
 		io.AddKeyEvent(imgui_key, false);
 
-		ImGuiKey imgui_mod_key{ ImGuiLayer::glfwKeyToImGuiModKey(e.GetKeyCode()) };
+		ImGuiKey imgui_mod_key{ ImGuiLayer::DKKeyToImGuiModKey(e.GetKeyCode()) };
 		io.AddKeyEvent(imgui_mod_key, false);
 
 		return false;
@@ -162,92 +164,92 @@ namespace Dark {
 	}
 
 	//manual key mapping from glw to imgui
-	ImGuiKey ImGuiLayer::glfwKeyToImGuiKey(int key)
+	ImGuiKey ImGuiLayer::DKKeyToImGuiKey(int key)
 	{
 		switch (key)
 		{
-			case GLFW_KEY_TAB:         return ImGuiKey_Tab;
-			case GLFW_KEY_LEFT:        return ImGuiKey_LeftArrow;
-			case GLFW_KEY_RIGHT:       return ImGuiKey_RightArrow;
-			case GLFW_KEY_UP:          return ImGuiKey_UpArrow;
-			case GLFW_KEY_DOWN:        return ImGuiKey_DownArrow;
-			case GLFW_KEY_PAGE_UP:     return ImGuiKey_PageUp;
-			case GLFW_KEY_PAGE_DOWN:   return ImGuiKey_PageDown;
-			case GLFW_KEY_HOME:        return ImGuiKey_Home;
-			case GLFW_KEY_END:         return ImGuiKey_End;
-			case GLFW_KEY_INSERT:      return ImGuiKey_Insert;
-			case GLFW_KEY_DELETE:      return ImGuiKey_Delete;
-			case GLFW_KEY_BACKSPACE:   return ImGuiKey_Backspace;
-			case GLFW_KEY_SPACE:       return ImGuiKey_Space;
-			case GLFW_KEY_ENTER:       return ImGuiKey_Enter;
-			case GLFW_KEY_ESCAPE:      return ImGuiKey_Escape;
+			case DK_KEY_TAB:         return ImGuiKey_Tab;
+			case DK_KEY_LEFT:        return ImGuiKey_LeftArrow;
+			case DK_KEY_RIGHT:       return ImGuiKey_RightArrow;
+			case DK_KEY_UP:          return ImGuiKey_UpArrow;
+			case DK_KEY_DOWN:        return ImGuiKey_DownArrow;
+			case DK_KEY_PAGE_UP:     return ImGuiKey_PageUp;
+			case DK_KEY_PAGE_DOWN:   return ImGuiKey_PageDown;
+			case DK_KEY_HOME:        return ImGuiKey_Home;
+			case DK_KEY_END:         return ImGuiKey_End;
+			case DK_KEY_INSERT:      return ImGuiKey_Insert;
+			case DK_KEY_DELETE:      return ImGuiKey_Delete;
+			case DK_KEY_BACKSPACE:   return ImGuiKey_Backspace;
+			case DK_KEY_SPACE:       return ImGuiKey_Space;
+			case DK_KEY_ENTER:       return ImGuiKey_Enter;
+			case DK_KEY_ESCAPE:      return ImGuiKey_Escape;
 
-			case GLFW_KEY_APOSTROPHE:  return ImGuiKey_Apostrophe;
-			case GLFW_KEY_COMMA:       return ImGuiKey_Comma;
-			case GLFW_KEY_MINUS:       return ImGuiKey_Minus;
-			case GLFW_KEY_PERIOD:      return ImGuiKey_Period;
-			case GLFW_KEY_SLASH:       return ImGuiKey_Slash;
-			case GLFW_KEY_SEMICOLON:   return ImGuiKey_Semicolon;
-			case GLFW_KEY_EQUAL:       return ImGuiKey_Equal;
-			case GLFW_KEY_LEFT_BRACKET:return ImGuiKey_LeftBracket;
-			case GLFW_KEY_BACKSLASH:   return ImGuiKey_Backslash;
-			case GLFW_KEY_RIGHT_BRACKET:return ImGuiKey_RightBracket;
-			case GLFW_KEY_GRAVE_ACCENT:return ImGuiKey_GraveAccent;
+			case DK_KEY_APOSTROPHE:  return ImGuiKey_Apostrophe;
+			case DK_KEY_COMMA:       return ImGuiKey_Comma;
+			case DK_KEY_MINUS:       return ImGuiKey_Minus;
+			case DK_KEY_PERIOD:      return ImGuiKey_Period;
+			case DK_KEY_SLASH:       return ImGuiKey_Slash;
+			case DK_KEY_SEMICOLON:   return ImGuiKey_Semicolon;
+			case DK_KEY_EQUAL:       return ImGuiKey_Equal;
+			case DK_KEY_LEFT_BRACKET:return ImGuiKey_LeftBracket;
+			case DK_KEY_BACKSLASH:   return ImGuiKey_Backslash;
+			case DK_KEY_RIGHT_BRACKET:return ImGuiKey_RightBracket;
+			case DK_KEY_GRAVE_ACCENT:return ImGuiKey_GraveAccent;
 
-			case GLFW_KEY_CAPS_LOCK:   return ImGuiKey_CapsLock;
-			case GLFW_KEY_SCROLL_LOCK: return ImGuiKey_ScrollLock;
-			case GLFW_KEY_NUM_LOCK:    return ImGuiKey_NumLock;
-			case GLFW_KEY_PRINT_SCREEN:return ImGuiKey_PrintScreen;
-			case GLFW_KEY_PAUSE:       return ImGuiKey_Pause;
+			case DK_KEY_CAPS_LOCK:   return ImGuiKey_CapsLock;
+			case DK_KEY_SCROLL_LOCK: return ImGuiKey_ScrollLock;
+			case DK_KEY_NUM_LOCK:    return ImGuiKey_NumLock;
+			case DK_KEY_PRINT_SCREEN:return ImGuiKey_PrintScreen;
+			case DK_KEY_PAUSE:       return ImGuiKey_Pause;
 
-			case GLFW_KEY_LEFT_SHIFT:   return ImGuiKey_LeftShift;
-			case GLFW_KEY_LEFT_CONTROL: return ImGuiKey_LeftCtrl;
-			case GLFW_KEY_LEFT_ALT:     return ImGuiKey_LeftAlt;
-			case GLFW_KEY_LEFT_SUPER:   return ImGuiKey_LeftSuper;
+			case DK_KEY_LEFT_SHIFT:   return ImGuiKey_LeftShift;
+			case DK_KEY_LEFT_CONTROL: return ImGuiKey_LeftCtrl;
+			case DK_KEY_LEFT_ALT:     return ImGuiKey_LeftAlt;
+			case DK_KEY_LEFT_SUPER:   return ImGuiKey_LeftSuper;
 
-			case GLFW_KEY_RIGHT_SHIFT:   return ImGuiKey_RightShift;
-			case GLFW_KEY_RIGHT_CONTROL: return ImGuiKey_RightCtrl;
-			case GLFW_KEY_RIGHT_ALT:     return ImGuiKey_RightAlt;
-			case GLFW_KEY_RIGHT_SUPER:   return ImGuiKey_RightSuper;
+			case DK_KEY_RIGHT_SHIFT:   return ImGuiKey_RightShift;
+			case DK_KEY_RIGHT_CONTROL: return ImGuiKey_RightCtrl;
+			case DK_KEY_RIGHT_ALT:     return ImGuiKey_RightAlt;
+			case DK_KEY_RIGHT_SUPER:   return ImGuiKey_RightSuper;
 
-			case GLFW_KEY_F1:  return ImGuiKey_F1;
-			case GLFW_KEY_F2:  return ImGuiKey_F2;
-			case GLFW_KEY_F3:  return ImGuiKey_F3;
-			case GLFW_KEY_F4:  return ImGuiKey_F4;
-			case GLFW_KEY_F5:  return ImGuiKey_F5;
-			case GLFW_KEY_F6:  return ImGuiKey_F6;
-			case GLFW_KEY_F7:  return ImGuiKey_F7;
-			case GLFW_KEY_F8:  return ImGuiKey_F8;
-			case GLFW_KEY_F9:  return ImGuiKey_F9;
-			case GLFW_KEY_F10: return ImGuiKey_F10;
-			case GLFW_KEY_F11: return ImGuiKey_F11;
-			case GLFW_KEY_F12: return ImGuiKey_F12;
+			case DK_KEY_F1:  return ImGuiKey_F1;
+			case DK_KEY_F2:  return ImGuiKey_F2;
+			case DK_KEY_F3:  return ImGuiKey_F3;
+			case DK_KEY_F4:  return ImGuiKey_F4;
+			case DK_KEY_F5:  return ImGuiKey_F5;
+			case DK_KEY_F6:  return ImGuiKey_F6;
+			case DK_KEY_F7:  return ImGuiKey_F7;
+			case DK_KEY_F8:  return ImGuiKey_F8;
+			case DK_KEY_F9:  return ImGuiKey_F9;
+			case DK_KEY_F10: return ImGuiKey_F10;
+			case DK_KEY_F11: return ImGuiKey_F11;
+			case DK_KEY_F12: return ImGuiKey_F12;
 
 			default:
 				break;
 		}
 
 		// Numbers
-		if (key >= GLFW_KEY_0 && key <= GLFW_KEY_9)
+		if (key >= DK_KEY_0 && key <= DK_KEY_9)
 			return static_cast<ImGuiKey>(
-				ImGuiKey_0 + (key - GLFW_KEY_0)
+				ImGuiKey_0 + (key - DK_KEY_0)
 				);
 
 		// Letters
-		if (key >= GLFW_KEY_A && key <= GLFW_KEY_Z)
+		if (key >= DK_KEY_A && key <= DK_KEY_Z)
 			return static_cast<ImGuiKey>(
-				ImGuiKey_A + (key - GLFW_KEY_A)
+				ImGuiKey_A + (key - DK_KEY_A)
 				);
 
 		return ImGuiKey_None;
 	}
 
-	ImGuiKey ImGuiLayer::glfwKeyToImGuiModKey(int key) {
+	ImGuiKey ImGuiLayer::DKKeyToImGuiModKey(int key) {
 
-		if (key == GLFW_KEY_LEFT_ALT || key == GLFW_KEY_RIGHT_ALT)			return ImGuiMod_Alt;
-		if (key == GLFW_KEY_LEFT_CONTROL || key == GLFW_KEY_RIGHT_CONTROL)  return ImGuiMod_Ctrl;
-		if (key == GLFW_KEY_LEFT_SHIFT || key == GLFW_KEY_RIGHT_SHIFT)		return ImGuiMod_Shift;
-		if (key == GLFW_KEY_LEFT_SUPER || key == GLFW_KEY_RIGHT_SUPER)		return ImGuiMod_Super;
+		if (key == DK_KEY_LEFT_ALT     || key == DK_KEY_RIGHT_ALT    )		return    ImGuiMod_Alt;
+		if (key == DK_KEY_LEFT_CONTROL || key == DK_KEY_RIGHT_CONTROL)      return   ImGuiMod_Ctrl;
+		if (key == DK_KEY_LEFT_SHIFT   || key == DK_KEY_RIGHT_SHIFT  )		return  ImGuiMod_Shift;
+		if (key == DK_KEY_LEFT_SUPER   || key == DK_KEY_RIGHT_SUPER  )  	return  ImGuiMod_Super;
 
 		return ImGuiMod_None;
 	}

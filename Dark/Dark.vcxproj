@@ -169,18 +169,25 @@
     <ClInclude Include="src\Dark\Events\Event.h" />
     <ClInclude Include="src\Dark\Events\KeyEvent.h" />
     <ClInclude Include="src\Dark\Events\MouseEvent.h" />
+    <ClInclude Include="src\Dark\GamePadCodes.h" />
     <ClInclude Include="src\Dark\ImGui\ImGuiLayer.h" />
+    <ClInclude Include="src\Dark\Input.h" />
+    <ClInclude Include="src\Dark\JoyStickCodes.h" />
+    <ClInclude Include="src\Dark\KeyCodes.h" />
     <ClInclude Include="src\Dark\Layer.h" />
     <ClInclude Include="src\Dark\LayerStack.h" />
     <ClInclude Include="src\Dark\Log.h" />
+    <ClInclude Include="src\Dark\MouseButtonCodes.h" />
     <ClInclude Include="src\Dark\Window.h" />
     <ClInclude Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.h" />
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="src\dpch.h" />
+    <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Dark\Application.cpp" />
     <ClCompile Include="src\Dark\ImGui\ImGuiLayer.cpp" />
+    <ClCompile Include="src\Dark\Input.cpp" />
     <ClCompile Include="src\Dark\Layer.cpp" />
     <ClCompile Include="src\Dark\LayerStack.cpp" />
     <ClCompile Include="src\Dark\Log.cpp" />
@@ -189,6 +196,7 @@
     <ClCompile Include="src\dpch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="src\Platform\Windows\WindowsInput.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="vendor\GLFW\GLFW.vcxproj">

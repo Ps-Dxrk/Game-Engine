@@ -25,19 +25,22 @@ namespace Dark {
 
 		virtual ~WindowsWindow();
 
-		void OnUpdate() override;
+		virtual void OnUpdate() override;
 
 		//win props
-		inline uint32_t GetWidth() const override { return m_Data.width; }
-		inline uint32_t GetHeight() const override { return m_Data.height; }
-		inline const std::string& GetTitle() const override { return m_Data.title; }
+		virtual inline uint32_t GetWidth() const override { return m_Data.width; }
+		virtual inline uint32_t GetHeight() const override { return m_Data.height; }
+		virtual inline const std::string& GetTitle() const override { return m_Data.title; }
 
 		//vsync
-		void SetVsync(bool val) override;
-		bool IsVsync() const override;
+		virtual void SetVsync(bool val) override;
+		virtual bool IsVsync() const override;
 
 		//event call back
-		inline void SetEventCallBackFn(const EventCallBackFn& callBackFn) override { m_Data.CallBackFn = callBackFn; }
+		virtual inline void SetEventCallBackFn(const EventCallBackFn& callBackFn) override { m_Data.CallBackFn = callBackFn; }
+
+		//return void pointer to the native window
+		inline virtual void* GetNativeWindow() const override { return m_Window; }
 
 	private:
 		virtual void Init(const WindowProps& props);

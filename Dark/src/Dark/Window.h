@@ -42,6 +42,9 @@ namespace Dark {
 		//event call back function
 		virtual void SetEventCallBackFn(const EventCallBackFn& callBackFn) = 0;
 
+		//get void pointer to the native window(pure virtual function, must be implemented in the derived class)
+		virtual void* GetNativeWindow() const = 0;
+
 		static Window* Create(const WindowProps& props = WindowProps());
 
 	};

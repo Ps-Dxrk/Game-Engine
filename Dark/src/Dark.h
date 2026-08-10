@@ -5,8 +5,7 @@
 #include "dpch.h"
 
 #include "Dark/Application.h"
-#include "Dark/Layer.h"
-#include "Dark/LayerStack.h"
+#include "Dark/Input.h"
 #include "Dark/Log.h"
 #include "Dark/Core.h"
 #include "Dark/ImGui/ImGuiLayer.h"

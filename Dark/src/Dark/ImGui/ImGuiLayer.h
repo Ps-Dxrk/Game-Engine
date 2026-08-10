@@ -37,8 +37,8 @@ namespace Dark {
 		bool OnWindowResizeEvent(WindowResizeEvent& e);
 
 		//manual key mapping from glw to imgui
-		static ImGuiKey glfwKeyToImGuiKey(int key);
-		static ImGuiKey glfwKeyToImGuiModKey(int key);
+		static ImGuiKey DKKeyToImGuiKey(int key);
+		static ImGuiKey DKKeyToImGuiModKey(int key);
 
 	};
 
