@@ -4,3 +4,15 @@
 [submodule "Dark/vendor/imgui"]
 	path = Dark/vendor/imgui
 	url = https://github.com/TheCherno/imgui.git
+[submodule "Dark/vendor/glm"]
+	path = Dark/vendor/glm
+	url = https://github.com/g-truc/glm.git
+[submodule "Dark/vendor/ImGui"]
+	path = Dark/vendor/ImGui
+	url = https://github.com/ocornut/imgui.git
+[submodule "Dark/vendor/Dark/vendor/ImGui/imgui"]
+	path = Dark/vendor/Dark/vendor/ImGui/imgui
+	url = https://github.com/ocornut/imgui.git
+[submodule "Dark/vendor/ImGui/imgui"]
+	path = Dark/vendor/ImGui/imgui
+	url = https://github.com/ocornut/imgui.git

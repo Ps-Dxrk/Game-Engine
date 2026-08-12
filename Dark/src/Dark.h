@@ -8,7 +8,6 @@
 #include "Dark/Input.h"
 #include "Dark/Log.h"
 #include "Dark/Core.h"
-#include "Dark/ImGui/ImGuiLayer.h"
 
 /*--Entry Point--*/
 #include "Dark/EntryPoint.h"

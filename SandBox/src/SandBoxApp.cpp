@@ -1,5 +1,7 @@
 #include "Dark.h"
 
+#include <imgui/imgui.h>
+
 class ExampleLayer : public Dark::Layer {
 
 public:
@@ -20,14 +22,18 @@ public:
 		}
 	}
 
+	virtual void OnImGuiRender() override{
+		ImGui::Begin("Hello World Window");
+		ImGui::Text("Hello Ma Nigga!");
+		ImGui::End();
+	}
+
 };
 
 class Sandbox : public Dark::Application {
 
 public:
 	Sandbox() {
-
-		PushOverlay(new Dark::ImGuiLayer());
 
 		PushLayer(new ExampleLayer());
 

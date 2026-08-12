@@ -22,13 +22,13 @@ IncludeDir["spdlog"] = "Dark/vendor/spdlog/include"
 IncludeDir["GLFW"] = "Dark/vendor/GLFW/include"
 IncludeDir["GLAD"] = "Dark/vendor/GLAD/include"
 IncludeDir["ImGui"] = "Dark/vendor/ImGui"
+IncludeDir["glm"] = "Dark/vendor/glm"
 
 group "Dependencies"
     include "Dark/vendor/GLFW"
     include "Dark/vendor/GLAD"
     include "Dark/vendor/ImGui"
 group ""
-
 
 project "Dark" 
     location "Dark"
@@ -52,7 +52,8 @@ project "Dark"
         "%{IncludeDir.spdlog}",
         "%{IncludeDir.GLFW}",
         "%{IncludeDir.GLAD}",
-        "%{IncludeDir.ImGui}"
+        "%{IncludeDir.ImGui}",
+        "%{IncludeDir.glm}"
     }
 
     links {
@@ -108,7 +109,9 @@ project "Sandbox"
 
     includedirs {
         "Dark/vendor/spdlog/include",
-        "Dark/src"
+        "Dark/src",
+        "%{IncludeDir.glm}",
+        "%{IncludeDir.ImGui}"
     }
 
     links {

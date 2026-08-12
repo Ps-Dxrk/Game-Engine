@@ -1,7 +1,7 @@
 project "ImGui"
 	kind "StaticLib"
 	language "C++"
-	staticruntime "off"
+	staticruntime "off" 
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -19,6 +19,10 @@ project "ImGui"
 		"imgui/imstb_textedit.h",
 		"imgui/imstb_truetype.h",
 		"imgui/imgui_demo.cpp"
+	}
+
+	defines {
+		"IMGUI_API = __declspec(dllimport)"
 	}
 
 

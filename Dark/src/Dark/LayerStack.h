@@ -13,7 +13,7 @@ namespace Dark {
 
 		std::vector<Layer*> m_Layers{};
 		
-		int m_LayerIndex{0};
+		int m_LayerInsertIndex{0};
 
 	public:
 
@@ -24,6 +24,9 @@ namespace Dark {
 		void PopLayer(Layer* layer);
 		void PushOverlay(Layer* layer);
 		void PopOverlay(Layer* layer);
+
+		inline std::vector<Layer*>::iterator begin() { return m_Layers.begin(); }
+		inline std::vector<Layer*>::iterator end() { return m_Layers.end(); }
 
 		inline const std::vector<Layer*>& GetLayers() { return m_Layers; }
 	};

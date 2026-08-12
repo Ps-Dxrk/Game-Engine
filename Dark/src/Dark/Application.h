@@ -2,12 +2,14 @@
 
 #include "Core.h"
 
-#include "Layer.h"
-#include "LayerStack.h"
+#include "Dark/Layer.h"
+#include "Dark/LayerStack.h"
 
-#include "Events/Event.h"
+#include "Dark/Events/Event.h"
 
-#include "Window.h"
+#include "Dark/Window.h"
+
+#include "Dark/ImGui/ImGuiLayer.h"
 
 namespace Dark {
 
@@ -23,6 +25,9 @@ namespace Dark {
 
 		//layer stack
 		LayerStack m_LayerStack;
+
+		//imgui layer
+		ImGuiLayer* m_ImGuiLayer;
 
 	public:
 

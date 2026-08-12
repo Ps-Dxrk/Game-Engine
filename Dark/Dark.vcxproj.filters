@@ -13,9 +13,6 @@
     <Filter Include="Platform">
       <UniqueIdentifier>{2AC788B4-1694-E3BF-3FAD-D1672BD9184E}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Platform\OpenGL">
-      <UniqueIdentifier>{1E7D2C1D-8A08-9AE1-9319-1DD6FF23F6E1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Platform\Windows">
       <UniqueIdentifier>{64FBD71A-50F4-F66C-7926-DCF1657ED678}</UniqueIdentifier>
     </Filter>
@@ -43,8 +40,20 @@
     <ClInclude Include="src\Dark\Events\MouseEvent.h">
       <Filter>Dark\Events</Filter>
     </ClInclude>
+    <ClInclude Include="src\Dark\GamePadCodes.h">
+      <Filter>Dark</Filter>
+    </ClInclude>
     <ClInclude Include="src\Dark\ImGui\ImGuiLayer.h">
       <Filter>Dark\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Dark\Input.h">
+      <Filter>Dark</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Dark\JoyStickCodes.h">
+      <Filter>Dark</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Dark\KeyCodes.h">
+      <Filter>Dark</Filter>
     </ClInclude>
     <ClInclude Include="src\Dark\Layer.h">
       <Filter>Dark</Filter>
@@ -55,11 +64,14 @@
     <ClInclude Include="src\Dark\Log.h">
       <Filter>Dark</Filter>
     </ClInclude>
+    <ClInclude Include="src\Dark\MouseButtonCodes.h">
+      <Filter>Dark</Filter>
+    </ClInclude>
     <ClInclude Include="src\Dark\Window.h">
       <Filter>Dark</Filter>
     </ClInclude>
-    <ClInclude Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.h">
-      <Filter>Platform\OpenGL</Filter>
+    <ClInclude Include="src\Platform\Windows\WindowsInput.h">
+      <Filter>Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h">
       <Filter>Platform\Windows</Filter>
@@ -70,8 +82,14 @@
     <ClCompile Include="src\Dark\Application.cpp">
       <Filter>Dark</Filter>
     </ClCompile>
+    <ClCompile Include="src\Dark\ImGui\ImGuiBuild.cpp">
+      <Filter>Dark\ImGui</Filter>
+    </ClCompile>
     <ClCompile Include="src\Dark\ImGui\ImGuiLayer.cpp">
       <Filter>Dark\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Dark\Input.cpp">
+      <Filter>Dark</Filter>
     </ClCompile>
     <ClCompile Include="src\Dark\Layer.cpp">
       <Filter>Dark</Filter>
@@ -82,8 +100,8 @@
     <ClCompile Include="src\Dark\Log.cpp">
       <Filter>Dark</Filter>
     </ClCompile>
-    <ClCompile Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.cpp">
-      <Filter>Platform\OpenGL</Filter>
+    <ClCompile Include="src\Platform\Windows\WindowsInput.cpp">
+      <Filter>Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp">
       <Filter>Platform\Windows</Filter>

@@ -21,6 +21,10 @@ namespace Dark {
 		m_Window = std::unique_ptr<Window>(Window::Create());
 		m_Window->SetEventCallBackFn(DARK_BIND_EVENT_FN(Application::OnEvent));
 
+		//creating teh imgui layer
+		m_ImGuiLayer = new ImGuiLayer();
+		PushOverlay(m_ImGuiLayer);
+
 	}
 
 	Application::~Application() {
@@ -35,12 +39,18 @@ namespace Dark {
 			glClear(GL_COLOR_BUFFER_BIT);
 
 			//layer update
-			const auto& layers{ m_LayerStack.GetLayers() };
-			if (!layers.empty()) {
-				for (int i = 0; i < layers.size(); i++) {
-					layers[i]->OnUpdate();
-				}
+			for (Layer* layer : m_LayerStack) {
+				layer->OnUpdate();
 			}
+
+			//imgui rendering for the layers
+			m_ImGuiLayer->Begin();
+				for (Layer* layer : m_LayerStack)
+				{
+					layer->OnImGuiRender();
+				}
+			m_ImGuiLayer->End();
+
 
 			//window update
 			m_Window->OnUpdate();
