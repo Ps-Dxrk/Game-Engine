@@ -22,7 +22,7 @@ project "ImGui"
 	}
 
 	defines {
-		"IMGUI_API = __declspec(dllimport)"
+		"IMGUI_API=__declspec(dllexport)"
 	}
 
 
