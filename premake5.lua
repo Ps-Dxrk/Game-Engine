@@ -32,9 +32,10 @@ group ""
 
 project "Dark" 
     location "Dark"
-    kind "SharedLib"
+    kind "StaticLib"
     language "C++"
-    staticruntime "off"
+    cppdialect "C++23"
+    staticruntime "on"
 
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -63,21 +64,16 @@ project "Dark"
         "opengl32.lib"
     }
 
+    linker "LLD"
+
     filter "system:windows"
-        cppdialect "C++23"
         systemversion "latest"
 
         defines {
-            "DARK_WINDOWS_BUILD",
+            "DARK_PLATFORM_WINDOWS",
             "DARK_BUILD_DLL",
             "_GLFW_WIN32",
-            "GLFW_INCLUDE_NONE",
-            "IMGUI_API=__declspec(dllexport)"
-            
-        }
-
-        postbuildcommands {
-            ("{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/Sandbox/\"")
+            "GLFW_INCLUDE_NONE"
         }
 
     filter "configurations:Debug"
@@ -85,21 +81,29 @@ project "Dark"
         runtime "Debug"
         symbols "On"
 
+        editandcontinue "off"
+
+        multiprocessorcompile "on"
+        incrementallink "on"
+
     filter "configurations:Release"
         defines "DARK_RELEASE"
         runtime "Release"
-        optimize "On"
+        optimize "on"
+        incrementallink "off"
 
     filter "configurations:Dist"
         defines "DARK_DIST"
         runtime "Release"
-        optimize "On"
+        optimize "on"
+        incrementallink "off"
 
 project "Sandbox"
     location "Sandbox"
     kind "ConsoleApp"
     language "C++"
-    staticruntime "off"
+    cppdialect "C++23"
+    staticruntime "on"
 
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -121,26 +125,29 @@ project "Sandbox"
     }
 
     filter "system:windows"
-        cppdialect "C++23"
         systemversion "latest"
 
         defines {
-            "DARK_WINDOWS_BUILD",
-            "DARK_PLATFORM_WINDOWS",
-            "IMGUI_API=__declspec(dllimport)"
+            "DARK_PLATFORM_WINDOWS"
         }
 
     filter "configurations:Debug"
         defines "DARK_DEBUG"
         runtime "Debug"
-        symbols "On"
+        symbols "on"
+
+        editandcontinue "off"
+
+        multiprocessorcompile "on"
+        incrementallink "on"
 
     filter "configurations:Release"
         defines "DARK_RELEASE"
         runtime "Release"
-        optimize "On"
+        optimize "on"
+        incrementallink "off"
 
     filter "configurations:Dist"
         defines "DARK_DIST"
         runtime "Release"
-        optimize "On"
+        optimize "on"

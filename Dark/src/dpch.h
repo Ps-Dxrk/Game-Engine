@@ -1,5 +1,7 @@
 #pragma once
 
+#define _CRT_SECURE_NO_WARNINGS
+
 #ifdef DARK_PLATFORM_WINDOWS
 #include <Windows.h>
 #endif

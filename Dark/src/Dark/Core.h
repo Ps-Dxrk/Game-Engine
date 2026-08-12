@@ -1,10 +1,14 @@
 #pragma once
 
-#ifdef DARK_WINDOWS_BUILD
-	#ifdef DARK_BUILD_DLL
-		#define DARK_API __declspec(dllexport)
-	#else
-		#define DARK_API __declspec(dllimport)
+#ifdef DARK_PLATFORM_WINDOWS
+	#ifdef DARK_DYNAMIC_LINK
+		#ifdef DARK_BUILD_DLL
+			#define DARK_API __declspec(dllexport)
+		#else 
+			#define DARK_API __declspec(dllimport)
+		#endif
+	#else 
+		#define DARK_API
 	#endif
 #else
 	#error DARK ENGINE IS ONLY SUPPORTED FOR WINDOWS!

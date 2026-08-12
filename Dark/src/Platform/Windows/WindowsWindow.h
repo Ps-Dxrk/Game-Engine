@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Dark/Window.h"
+#include "Dark/Renderer/GraphicsContext.h"
 
 struct GLFWwindow;
 
@@ -19,6 +20,8 @@ namespace Dark {
 
 		GLFWwindow* m_Window;
 		WindowData m_Data;
+
+		GraphicsContext* m_Context{ nullptr };
 
 	public:
 		WindowsWindow(const WindowProps& props);

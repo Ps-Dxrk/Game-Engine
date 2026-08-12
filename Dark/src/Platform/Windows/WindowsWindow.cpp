@@ -6,8 +6,9 @@
 #include "Dark/Events/KeyEvent.h"
 #include "Dark/Events/MouseEvent.h"
 
-#include "glad/glad.h"
 #include "GLFW/glfw3.h"
+
+#include "Platform/OpenGL/OpenGLContext.h"
 
 namespace Dark {
 
@@ -49,12 +50,11 @@ namespace Dark {
 			static_cast<int>(m_Data.width), static_cast<int>(m_Data.height),
 			m_Data.title.c_str(), nullptr, nullptr
 		);
-		glfwMakeContextCurrent(m_Window);
-		int glad_load_status{ gladLoadGLLoader((GLADloadproc)glfwGetProcAddress) };
-		DARK_CORE_ASSERT(glad_load_status, "Failed to Load GLAD!");
-		if (glad_load_status) {
-			DARK_CORE_INFO("Initialized GLAD Successfully!");
-		}
+
+		//creating a new opengl context
+		m_Context = new OpenGLContext(m_Window);
+		m_Context->Init();
+		
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		SetVsync(true);
 
@@ -156,7 +156,7 @@ namespace Dark {
 
 	void WindowsWindow::OnUpdate() {
 		glfwPollEvents();
-		glfwSwapBuffers(m_Window);
+		m_Context->SwapBuffers();
 	}
 
 	//vsync

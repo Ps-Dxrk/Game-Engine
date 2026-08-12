@@ -70,14 +70,9 @@ namespace Dark {
 		});
 
 		////layer event handling
-		const auto& layers{ m_LayerStack.GetLayers() };
-		if (!layers.empty()) {
-			for (int i = layers.size() - 1; i >= 0; i--) {
-
-				layers[i]->OnEvent(e);
-				if (e.Handled()) break;
-
-			}
+		for (auto it{ m_LayerStack.rbegin() }; it != m_LayerStack.rend(); it++) {
+			(*it)->OnEvent(e);
+			if (e.Handled()) break;
 		}
 
 	}

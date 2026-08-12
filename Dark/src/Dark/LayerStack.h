@@ -25,8 +25,10 @@ namespace Dark {
 		void PushOverlay(Layer* layer);
 		void PopOverlay(Layer* layer);
 
-		inline std::vector<Layer*>::iterator begin() { return m_Layers.begin(); }
-		inline std::vector<Layer*>::iterator end() { return m_Layers.end(); }
+		inline auto begin() { return m_Layers.begin(); }
+		inline auto end() { return m_Layers.end(); }
+		inline auto rbegin() { return m_Layers.rbegin(); }
+		inline auto rend() { return m_Layers.rend(); }
 
 		inline const std::vector<Layer*>& GetLayers() { return m_Layers; }
 	};
