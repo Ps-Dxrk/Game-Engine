@@ -89,6 +89,7 @@
       <Filter>Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\dpch.h" />
+    <ClInclude Include="src\Dark\Renderer\Shader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Dark\Application.cpp">
@@ -122,5 +123,6 @@
       <Filter>Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\dpch.cpp" />
+    <ClCompile Include="src\Dark\Renderer\Shader.cpp" />
   </ItemGroup>
 </Project>

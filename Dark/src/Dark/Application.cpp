@@ -8,6 +8,8 @@
 
 #include "Dark/Input.h"
 
+#include "Dark/Renderer/Shader.h"
+
 namespace Dark {
 	Application* Application::s_Instance{ nullptr };
 
@@ -49,6 +51,8 @@ namespace Dark {
 		glEnableVertexAttribArray(0);
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
 
+		m_Shader = std::make_unique<Shader>("D:\\DarkEngine\\Dark\\bin\\Debug-windows-x86_64\\Sandbox\\Shader\\vert.glsl", "D:\\DarkEngine\\Dark\\bin\\Debug-windows-x86_64\\Sandbox\\Shader\\frag.glsl");
+
 	}
 
 	Application::~Application() {
@@ -64,6 +68,7 @@ namespace Dark {
 
 			glBindVertexArray(m_VertexArray);
 			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IndexBuffer);
+			m_Shader->Bind();
 			glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
 
 			//layer update

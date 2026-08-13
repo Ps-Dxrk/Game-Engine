@@ -14,6 +14,7 @@
 namespace Dark {
 
 	class WindowCloseEvent;
+	class Shader;
 
 	class DARK_API Application {
 
@@ -31,6 +32,7 @@ namespace Dark {
 
 		//opengl stuff
 		uint32_t m_VertexArray, m_VertexBuffer, m_IndexBuffer;
+		std::unique_ptr<Shader> m_Shader{};
 	public:
 
 		Application();
