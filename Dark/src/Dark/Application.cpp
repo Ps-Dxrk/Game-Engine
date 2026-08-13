@@ -25,6 +25,30 @@ namespace Dark {
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);
 
+		float vertices[9]{
+			-0.5, -0.5, 0.0,
+			0.5, -0.5, 0.0,
+			0.0, 0.5, 0.0
+		};
+
+		uint32_t indices[3]{
+			0, 1, 2
+		};
+
+		glGenVertexArrays(1, &m_VertexArray);
+		glBindVertexArray(m_VertexArray);
+
+		glGenBuffers(1, &m_VertexBuffer);
+		glBindBuffer(GL_ARRAY_BUFFER, m_VertexBuffer);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+		glGenBuffers(1, &m_IndexBuffer);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IndexBuffer);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+
 	}
 
 	Application::~Application() {
@@ -35,8 +59,12 @@ namespace Dark {
 
 		while(m_Running) {
 
-			glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+			glClearColor(0.125f, 0.125f, 0.125f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT);
+
+			glBindVertexArray(m_VertexArray);
+			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IndexBuffer);
+			glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
 
 			//layer update
 			for (Layer* layer : m_LayerStack) {

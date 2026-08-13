@@ -29,6 +29,8 @@ namespace Dark {
 		//imgui layer
 		ImGuiLayer* m_ImGuiLayer;
 
+		//opengl stuff
+		uint32_t m_VertexArray, m_VertexBuffer, m_IndexBuffer;
 	public:
 
 		Application();

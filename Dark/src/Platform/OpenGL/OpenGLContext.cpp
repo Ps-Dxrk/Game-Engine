@@ -19,9 +19,12 @@ namespace Dark {
 		glfwMakeContextCurrent(m_WinHandle);
 		int glad_load_status{ gladLoadGLLoader((GLADloadproc)glfwGetProcAddress) };
 		DARK_CORE_ASSERT(glad_load_status, "Failed to Load GLAD!");
-		if (glad_load_status) {
-			DARK_CORE_INFO("Initialized GLAD Successfully!");
-		}
+		
+		////opengl info
+		DARK_CORE_INFO("OpenGL Info:");
+		DARK_CORE_INFO("	Vendor: {0}", (const char*)glGetString(GL_VENDOR));
+		DARK_CORE_INFO("	Renderer: {0}", (const char*)glGetString(GL_RENDERER));
+		DARK_CORE_INFO("	Version: {0}", (const char*)glGetString(GL_VERSION));
 	}
 
 	void OpenGLContext::SwapBuffers() {
