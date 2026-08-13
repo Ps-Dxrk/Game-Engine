@@ -1,0 +1,34 @@
+#include "dpch.h"
+#include "Buffer.h"
+
+#include "Platform/OpenGL/OpenGLBuffer.h"
+
+#include "Dark/Renderer/Renderer.h"
+
+namespace Dark {
+
+	//Vertex Buffer Create fn Implementation
+	VertexBuffer* VertexBuffer::Create(float* vertices, uint32_t size) {
+
+		switch (Renderer::GetAPI()) {
+			case RendererAPI::None: DARK_CORE_ASSERT(false, "RendererAPI::None is not currently Supported!"); return nullptr;
+			case RendererAPI::OpenGL: return new OpenGLVertexBuffer(vertices, size);
+		}
+
+		DARK_CORE_ASSERT(false, "Unknown RendererAPI");
+		return nullptr;
+	}
+	
+	//Index Buffer Create fn Implementation
+	IndexBuffer* IndexBuffer::Create(uint32_t* indices, uint32_t size) {
+
+		switch (Renderer::GetAPI()) {
+			case RendererAPI::None: DARK_CORE_ASSERT(false, "RendererAPI::None is not currently Supported!"); return nullptr;
+			case RendererAPI::OpenGL: return new OpenGLIndexBuffer(indices, size);
+		}
+
+		DARK_CORE_ASSERT(false, "Unknown RendererAPI");
+		return nullptr;
+
+	}
+}

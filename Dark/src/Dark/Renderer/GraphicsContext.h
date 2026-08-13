@@ -2,6 +2,7 @@
 
 namespace Dark {
 
+	//interface for the Graphics context, to be implemented by the respective context creators for the specific APIs
 	class GraphicsContext {
 
 	public:

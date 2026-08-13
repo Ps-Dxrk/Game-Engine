@@ -9,6 +9,7 @@
 #include "Dark/Input.h"
 
 #include "Dark/Renderer/Shader.h"
+#include "Dark/Renderer/Buffer.h"
 
 namespace Dark {
 	Application* Application::s_Instance{ nullptr };
@@ -40,13 +41,11 @@ namespace Dark {
 		glGenVertexArrays(1, &m_VertexArray);
 		glBindVertexArray(m_VertexArray);
 
-		glGenBuffers(1, &m_VertexBuffer);
-		glBindBuffer(GL_ARRAY_BUFFER, m_VertexBuffer);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+		m_VertexBuffer.reset(VertexBuffer::Create(vertices, sizeof(vertices)));
+		m_VertexBuffer->Bind();
 
-		glGenBuffers(1, &m_IndexBuffer);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IndexBuffer);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+		m_IndexBuffer.reset(IndexBuffer::Create(indices, 3));
+		m_IndexBuffer->Bind();
 
 		glEnableVertexAttribArray(0);
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
@@ -67,7 +66,7 @@ namespace Dark {
 			glClear(GL_COLOR_BUFFER_BIT);
 
 			glBindVertexArray(m_VertexArray);
-			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IndexBuffer);
+			m_IndexBuffer->Bind();
 			m_Shader->Bind();
 			glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
 
