@@ -14,6 +14,7 @@
 namespace Dark {
 	Application* Application::s_Instance{ nullptr };
 
+	//temporary, will be updated
 	static GLenum ShaderDataTypeToOpenGLBaseType(ShaderDataType type)
 	{
 		switch (type)
