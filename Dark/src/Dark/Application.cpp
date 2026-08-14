@@ -14,6 +14,30 @@
 namespace Dark {
 	Application* Application::s_Instance{ nullptr };
 
+	static GLenum ShaderDataTypeToOpenGLBaseType(ShaderDataType type)
+	{
+		switch (type)
+		{
+			case ShaderDataType::Float:    return GL_FLOAT;
+			case ShaderDataType::Float2:   return GL_FLOAT;
+			case ShaderDataType::Float3:   return GL_FLOAT;
+			case ShaderDataType::Float4:   return GL_FLOAT;
+			case ShaderDataType::Mat3:     return GL_FLOAT;
+			case ShaderDataType::Mat4:     return GL_FLOAT;
+			case ShaderDataType::Int:      return GL_INT;
+			case ShaderDataType::Int2:     return GL_INT;
+			case ShaderDataType::Int3:     return GL_INT;
+			case ShaderDataType::Int4:     return GL_INT;
+			case ShaderDataType::Uint:     return GL_UNSIGNED_INT;
+			case ShaderDataType::Uint2:    return GL_UNSIGNED_INT;
+			case ShaderDataType::Uint3:    return GL_UNSIGNED_INT;
+			case ShaderDataType::Uint4:    return GL_UNSIGNED_INT;
+			case ShaderDataType::Bool:     return GL_BOOL;
+		}
+
+		DARK_CORE_ASSERT(false, "Unknown ShaderDataType!");
+		return 0;
+	}
 
 	Application::Application() {
 
@@ -28,10 +52,10 @@ namespace Dark {
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);
 
-		float vertices[9]{
-			-0.5, -0.5, 0.0,
-			0.5, -0.5, 0.0,
-			0.0, 0.5, 0.0
+		float vertices[21]{
+			-0.5, -0.5, 0.0, 1.0, 0.0, 0.0, 1.0,
+			0.5, -0.5, 0.0, 0.0, 1.0, 0.0, 1.0,
+			0.0, 0.5, 0.0, 0.0, 0.0, 1.0, 1.0
 		};
 
 		uint32_t indices[3]{
@@ -44,11 +68,30 @@ namespace Dark {
 		m_VertexBuffer.reset(VertexBuffer::Create(vertices, sizeof(vertices)));
 		m_VertexBuffer->Bind();
 
+		{
+			BufferLayout layout
+			{
+				{"aPos", ShaderDataType::Float3},
+				{"aColor", ShaderDataType::Float4}
+			};
+
+			m_VertexBuffer->SetLayout(layout);
+		}
+		
 		m_IndexBuffer.reset(IndexBuffer::Create(indices, 3));
 		m_IndexBuffer->Bind();
 
-		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+		uint32_t idx{};
+		for (const auto& elements : m_VertexBuffer->GetLayout()) {
+			glEnableVertexAttribArray(idx);
+			glVertexAttribPointer(idx, 
+				elements.GetComponentCount(), 
+				ShaderDataTypeToOpenGLBaseType(elements.type),
+				elements.Normalized ? GL_TRUE : GL_FALSE,
+				m_VertexBuffer->GetLayout().GetStride(),
+				(const void*)elements.offset);
+			idx++;
+		}
 
 		m_Shader = std::make_unique<Shader>("D:\\DarkEngine\\Dark\\bin\\Debug-windows-x86_64\\Sandbox\\Shader\\vert.glsl", "D:\\DarkEngine\\Dark\\bin\\Debug-windows-x86_64\\Sandbox\\Shader\\frag.glsl");
 

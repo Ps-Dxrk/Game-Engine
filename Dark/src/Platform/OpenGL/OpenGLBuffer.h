@@ -11,6 +11,7 @@ namespace Dark {
 
 	private:
 		uint32_t m_RendererID;
+		BufferLayout m_Layout;
 
 	public:
 		OpenGLVertexBuffer(float* vertices, uint32_t size);
@@ -18,6 +19,9 @@ namespace Dark {
 
 		virtual void Bind() const override;
 		virtual void UnBind() const override;
+
+		inline virtual void SetLayout(const BufferLayout& layout) override { m_Layout = layout; }
+		inline virtual const BufferLayout& GetLayout() const override { return m_Layout; }
 
 		void UpdateData(float* vertices, uint32_t size);
 
@@ -38,6 +42,8 @@ namespace Dark {
 		virtual void Bind() const override;
 		virtual void UnBind() const override;
 		inline virtual uint32_t GetCount() const override { return m_Count; }
+		
+
 
 		void UpdateData(uint32_t* indices, uint32_t size);
 	};
