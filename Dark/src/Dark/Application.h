@@ -13,6 +13,7 @@
 
 namespace Dark {
 
+	class VertexArray;
 	class VertexBuffer;
 	class IndexBuffer;
 	class Shader;
@@ -32,10 +33,11 @@ namespace Dark {
 		ImGuiLayer* m_ImGuiLayer;
 
 		//opengl stuff
-		uint32_t m_VertexArray;
-		std::unique_ptr<VertexBuffer> m_VertexBuffer{};
-		std::unique_ptr<IndexBuffer> m_IndexBuffer{};
-		std::unique_ptr<Shader> m_Shader{};
+		std::shared_ptr<VertexArray> m_VertexArray{};
+
+		std::shared_ptr<VertexArray> m_SquareVA{};
+
+		std::shared_ptr<Shader> m_Shader{};
 	public:
 
 		Application();

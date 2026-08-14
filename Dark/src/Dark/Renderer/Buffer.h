@@ -2,11 +2,14 @@
 
 namespace Dark {
 
+	//not really the actual shader type, but the types of the datat that's being sent to the shader/gpu
+	//or the types of the data grouped in the vertex buffers
 	enum class ShaderDataType
 	{
 		None = 0, Float, Float2, Float3, Float4, Int, Int2, Int3, Int4, Uint, Uint2, Uint3, Uint4, Mat3, Mat4, Bool
 	};
 
+	//return sthe size of the data types
 	static uint32_t ShaderDataTypeSize(ShaderDataType type) {
 		switch (type) {
 			case ShaderDataType::None:		return 0;
@@ -50,6 +53,8 @@ namespace Dark {
 		{
 		}
 
+		//component count is the no of components or value a specific type holds
+		//its required for opengl and other rendering APIs;
 		uint32_t GetComponentCount() const
 		{
 			switch (type)
@@ -145,7 +150,7 @@ namespace Dark {
 
 		virtual uint32_t GetCount() const = 0;
 
-		static IndexBuffer* Create(uint32_t* indices, uint32_t size);
+		static IndexBuffer* Create(uint32_t* indices, uint32_t count);
 	};
 
 }

@@ -10,35 +10,10 @@
 
 #include "Dark/Renderer/Shader.h"
 #include "Dark/Renderer/Buffer.h"
+#include "Dark/Renderer/VertexArray.h"
 
 namespace Dark {
 	Application* Application::s_Instance{ nullptr };
-
-	//temporary, will be updated
-	static GLenum ShaderDataTypeToOpenGLBaseType(ShaderDataType type)
-	{
-		switch (type)
-		{
-			case ShaderDataType::Float:    return GL_FLOAT;
-			case ShaderDataType::Float2:   return GL_FLOAT;
-			case ShaderDataType::Float3:   return GL_FLOAT;
-			case ShaderDataType::Float4:   return GL_FLOAT;
-			case ShaderDataType::Mat3:     return GL_FLOAT;
-			case ShaderDataType::Mat4:     return GL_FLOAT;
-			case ShaderDataType::Int:      return GL_INT;
-			case ShaderDataType::Int2:     return GL_INT;
-			case ShaderDataType::Int3:     return GL_INT;
-			case ShaderDataType::Int4:     return GL_INT;
-			case ShaderDataType::Uint:     return GL_UNSIGNED_INT;
-			case ShaderDataType::Uint2:    return GL_UNSIGNED_INT;
-			case ShaderDataType::Uint3:    return GL_UNSIGNED_INT;
-			case ShaderDataType::Uint4:    return GL_UNSIGNED_INT;
-			case ShaderDataType::Bool:     return GL_BOOL;
-		}
-
-		DARK_CORE_ASSERT(false, "Unknown ShaderDataType!");
-		return 0;
-	}
 
 	Application::Application() {
 
@@ -53,46 +28,59 @@ namespace Dark {
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);
 
+		m_VertexArray.reset(VertexArray::Create());
+
 		float vertices[21]{
-			-0.5, -0.5, 0.0, 1.0, 0.0, 0.0, 1.0,
-			0.5, -0.5, 0.0, 0.0, 1.0, 0.0, 1.0,
-			0.0, 0.5, 0.0, 0.0, 0.0, 1.0, 1.0
+			0.25, -0.5, 0.0, 1.0, 0.0, 0.0, 1.0,
+			0.75, -0.5, 0.0, 0.0, 1.0, 0.0, 1.0,
+			0.5, 0.5, 0.0, 0.0, 0.0, 1.0, 1.0
 		};
+
+		std::shared_ptr<VertexBuffer> vertexBuffer{ VertexBuffer::Create(vertices, sizeof(vertices)) };
+
+		BufferLayout layout
+		{
+			{"aPos", ShaderDataType::Float3},
+			{"aColor", ShaderDataType::Float4}
+		};
+
+		vertexBuffer->SetLayout(layout);
+		m_VertexArray->AddVertexBuffer(vertexBuffer);
 
 		uint32_t indices[3]{
 			0, 1, 2
 		};
 
-		glGenVertexArrays(1, &m_VertexArray);
-		glBindVertexArray(m_VertexArray);
+		std::shared_ptr<IndexBuffer> indexBuffer{ IndexBuffer::Create(indices, 3) };
+		m_VertexArray->SetIndexBuffer(indexBuffer);
 
-		m_VertexBuffer.reset(VertexBuffer::Create(vertices, sizeof(vertices)));
-		m_VertexBuffer->Bind();
+		//square
+		m_SquareVA.reset(VertexArray::Create());
 
+		float verticesSQ[28]{
+			-0.5, -0.5, 0.0, 1.0, 0.0, 0.0, 1.0,
+			0.5, -0.5, 0.0, 0.0, 1.0, 0.0, 1.0,
+			0.5, 0.5, 0.0, 0.0, 0.0, 1.0, 1.0,
+			-0.5, 0.5, 0.0, 0.5, 0.5, 0.5, 1.0
+		};
+
+		std::shared_ptr<VertexBuffer> squareVB{ VertexBuffer::Create(verticesSQ, sizeof(verticesSQ)) };
+
+		BufferLayout layoutSQ
 		{
-			BufferLayout layout
-			{
-				{"aPos", ShaderDataType::Float3},
-				{"aColor", ShaderDataType::Float4}
-			};
+			{"aPos", ShaderDataType::Float3},
+			{"aColor", ShaderDataType::Float4}
+		};
 
-			m_VertexBuffer->SetLayout(layout);
-		}
-		
-		m_IndexBuffer.reset(IndexBuffer::Create(indices, 3));
-		m_IndexBuffer->Bind();
+		squareVB->SetLayout(layoutSQ);
+		m_SquareVA->AddVertexBuffer(squareVB);
 
-		uint32_t idx{};
-		for (const auto& elements : m_VertexBuffer->GetLayout()) {
-			glEnableVertexAttribArray(idx);
-			glVertexAttribPointer(idx, 
-				elements.GetComponentCount(), 
-				ShaderDataTypeToOpenGLBaseType(elements.type),
-				elements.Normalized ? GL_TRUE : GL_FALSE,
-				m_VertexBuffer->GetLayout().GetStride(),
-				(const void*)elements.offset);
-			idx++;
-		}
+		uint32_t indicesSQ[6]{
+			0, 1, 2, 2, 3, 0
+		};
+
+		std::shared_ptr<IndexBuffer> squareIB{ IndexBuffer::Create(indicesSQ, 6) };
+		m_SquareVA->SetIndexBuffer(squareIB);
 
 		m_Shader = std::make_unique<Shader>("D:\\DarkEngine\\Dark\\bin\\Debug-windows-x86_64\\Sandbox\\Shader\\vert.glsl", "D:\\DarkEngine\\Dark\\bin\\Debug-windows-x86_64\\Sandbox\\Shader\\frag.glsl");
 
@@ -109,10 +97,12 @@ namespace Dark {
 			glClearColor(0.125f, 0.125f, 0.125f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT);
 
-			glBindVertexArray(m_VertexArray);
-			m_IndexBuffer->Bind();
 			m_Shader->Bind();
-			glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
+			m_SquareVA->Bind();
+			glDrawElements(GL_TRIANGLES, m_SquareVA->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+
+			m_VertexArray->Bind();
+			glDrawElements(GL_TRIANGLES, m_VertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
 
 			//layer update
 			for (Layer* layer : m_LayerStack) {
