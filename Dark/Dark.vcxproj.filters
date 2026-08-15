@@ -73,9 +73,6 @@
     <ClInclude Include="src\Dark\MouseButtonCodes.h">
       <Filter>Dark</Filter>
     </ClInclude>
-    <ClInclude Include="src\Dark\Renderer\GraphicsContext.h">
-      <Filter>Dark\Renderer</Filter>
-    </ClInclude>
     <ClInclude Include="src\Dark\Window.h">
       <Filter>Dark</Filter>
     </ClInclude>
@@ -89,12 +86,16 @@
       <Filter>Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\dpch.h" />
-    <ClInclude Include="src\Dark\Renderer\Shader.h" />
-    <ClInclude Include="src\Dark\Renderer\Buffer.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />
-    <ClInclude Include="src\Dark\Renderer\Renderer.h" />
-    <ClInclude Include="src\Dark\Renderer\VertexArray.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.h" />
+    <ClInclude Include="src\Dark\Renderer\Buffer.h" />
+    <ClInclude Include="src\Dark\Renderer\GraphicsContext.h" />
+    <ClInclude Include="src\Dark\Renderer\Renderer.h" />
+    <ClInclude Include="src\Dark\Renderer\RendererAPI.h" />
+    <ClInclude Include="src\Dark\Renderer\Shader.h" />
+    <ClInclude Include="src\Dark\Renderer\VertexArray.h" />
+    <ClInclude Include="src\Dark\Renderer\RenderCommand.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Dark\Application.cpp">
@@ -128,11 +129,14 @@
       <Filter>Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\dpch.cpp" />
-    <ClCompile Include="src\Dark\Renderer\Shader.cpp" />
-    <ClCompile Include="src\Dark\Renderer\Buffer.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp" />
-    <ClCompile Include="src\Dark\Renderer\Renderer.cpp" />
-    <ClCompile Include="src\Dark\Renderer\VertexArray.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp" />
+    <ClCompile Include="src\Dark\Renderer\Buffer.cpp" />
+    <ClCompile Include="src\Dark\Renderer\Renderer.cpp" />
+    <ClCompile Include="src\Dark\Renderer\RendererAPI.cpp" />
+    <ClCompile Include="src\Dark\Renderer\Shader.cpp" />
+    <ClCompile Include="src\Dark\Renderer\VertexArray.cpp" />
+    <ClCompile Include="src\Dark\Renderer\RenderCommand.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp" />
   </ItemGroup>
 </Project>

@@ -4,13 +4,13 @@
 
 #include "Dark/Events/ApplicationEvent.h"
 
-#include <glad/glad.h>
-
 #include "Dark/Input.h"
 
 #include "Dark/Renderer/Shader.h"
 #include "Dark/Renderer/Buffer.h"
 #include "Dark/Renderer/VertexArray.h"
+
+#include "Dark/Renderer/Renderer.h"
 
 namespace Dark {
 	Application* Application::s_Instance{ nullptr };
@@ -94,16 +94,18 @@ namespace Dark {
 
 		while(m_Running) {
 
-			glClearColor(0.125f, 0.125f, 0.125f, 1.0f);
-			glClear(GL_COLOR_BUFFER_BIT);
+			RenderCommand::Clear({ 0.0f, 0.5f, 0.5f, 1.0f });
+
+			Renderer::BeginScene();
 
 			m_Shader->Bind();
-			m_SquareVA->Bind();
-			glDrawElements(GL_TRIANGLES, m_SquareVA->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+			Renderer::Submit(m_VertexArray);
 
-			m_VertexArray->Bind();
-			glDrawElements(GL_TRIANGLES, m_VertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+			m_Shader->Bind();
+			Renderer::Submit(m_SquareVA);
 
+			Renderer::EndScene();
+	
 			//layer update
 			for (Layer* layer : m_LayerStack) {
 				layer->OnUpdate();

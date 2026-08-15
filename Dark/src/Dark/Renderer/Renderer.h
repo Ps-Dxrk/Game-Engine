@@ -1,23 +1,25 @@
 #pragma once
 
-namespace Dark {
+#include "Dark/Renderer/RendererAPI.h"
+#include "Dark/Renderer/RenderCommand.h"
 
-	enum class RendererAPI {
-		None = 0,
-		OpenGL = 1,
-		Direct3D = 2,
-		Vulkan = 3,
-		Metal = 4
-	};
+namespace Dark {
 
 	class Renderer {
 
 	private:
-		static RendererAPI s_RendererAPI;
 
 	public:
-		inline static RendererAPI GetAPI() { return s_RendererAPI; }
-		inline static void SetAPI(RendererAPI api) { s_RendererAPI = api; }
+
+		//TODO: Add Parameters for various stuff
+		static void BeginScene();
+		static void EndScene();
+
+		static void Submit(const std::shared_ptr<VertexArray>& vertexArray);
+
+
+		inline static RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
+		inline static void SetAPI(RendererAPI::API api) { RendererAPI::SetAPI(api); }
 
 	};
 
