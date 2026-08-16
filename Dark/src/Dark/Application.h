@@ -33,16 +33,6 @@ namespace Dark {
 
 		//imgui layer
 		ImGuiLayer* m_ImGuiLayer;
-
-		//opengl stuff
-		std::shared_ptr<VertexArray> m_VertexArray{};
-
-		std::shared_ptr<VertexArray> m_SquareVA{};
-
-		std::shared_ptr<Shader> m_Shader{};
-
-		//camera
-		OrthoGraphicCamera m_Camera;
 	public:
 
 		Application();
