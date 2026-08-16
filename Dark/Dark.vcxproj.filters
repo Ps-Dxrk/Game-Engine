@@ -96,6 +96,7 @@
     <ClInclude Include="src\Dark\Renderer\VertexArray.h" />
     <ClInclude Include="src\Dark\Renderer\RenderCommand.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h" />
+    <ClInclude Include="src\Dark\Renderer\OrthoGraphicCamera.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Dark\Application.cpp">
@@ -138,5 +139,6 @@
     <ClCompile Include="src\Dark\Renderer\VertexArray.cpp" />
     <ClCompile Include="src\Dark\Renderer\RenderCommand.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp" />
+    <ClCompile Include="src\Dark\Renderer\OrthoGraphicCamera.cpp" />
   </ItemGroup>
 </Project>

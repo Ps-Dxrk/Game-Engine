@@ -15,7 +15,9 @@
 namespace Dark {
 	Application* Application::s_Instance{ nullptr };
 
-	Application::Application() {
+	Application::Application()
+		: m_Camera{ -3.2f, 3.2f, 1.8f, -1.8f }
+	{
 
 		DARK_CORE_ASSERT(!s_Instance, "Application Already Exists");
 		s_Instance = this;
@@ -84,6 +86,9 @@ namespace Dark {
 
 		m_Shader = std::make_unique<Shader>("D:\\DarkEngine\\Dark\\bin\\Debug-windows-x86_64\\Sandbox\\Shader\\vert.glsl", "D:\\DarkEngine\\Dark\\bin\\Debug-windows-x86_64\\Sandbox\\Shader\\frag.glsl");
 
+		//camera stuff
+		m_Camera.SetRotation(45.0f);
+		m_Camera.SetPosition({ 0.0f, 0.0f, 0.0f });
 	}
 
 	Application::~Application() {
@@ -96,13 +101,11 @@ namespace Dark {
 
 			RenderCommand::Clear({ 0.0f, 0.5f, 0.5f, 1.0f });
 
-			Renderer::BeginScene();
+			Renderer::BeginScene(m_Camera);
 
-			m_Shader->Bind();
-			Renderer::Submit(m_VertexArray);
+			Renderer::Submit(m_Shader, m_VertexArray);
 
-			m_Shader->Bind();
-			Renderer::Submit(m_SquareVA);
+			Renderer::Submit(m_Shader, m_SquareVA);
 
 			Renderer::EndScene();
 	

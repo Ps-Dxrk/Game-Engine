@@ -3,6 +3,8 @@
 
 #include <glad/glad.h>
 
+#include <glm/gtc/type_ptr.hpp>
+
 namespace Dark {
 
 
@@ -28,6 +30,13 @@ namespace Dark {
 		glUseProgram(0);
 	}
 
+	void Shader::SetUniformMatrix(const std::string& name, const glm::mat4& mat)
+	{
+		int location{ glGetUniformLocation(m_RendererID, name.c_str()) };
+		glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(mat));
+	}
+
+	//parsing and compiling shaders
 	uint32_t Shader::CompileShader(const std::string& vertexShaderFP, const std::string& fragmentShaderFP) {
 
 		//creating the shader in GPU memory

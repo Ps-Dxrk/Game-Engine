@@ -1,5 +1,7 @@
 #pragma once
 
+#include <glm/glm.hpp>
+
 namespace Dark {
 
 	class DARK_API Shader {
@@ -13,6 +15,9 @@ namespace Dark {
 
 		void Bind() const;
 		void UnBind() const;
+
+		//uniforms
+		void SetUniformMatrix(const std::string& name, const glm::mat4& mat);
 
 	
 	private:
