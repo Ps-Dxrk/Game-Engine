@@ -16,10 +16,9 @@ private:
 	//camera
 	Dark::OrthoGraphicCamera m_Camera;
 	glm::vec3 m_CamPos{};
-	float m_CamSpeed{0.05f};
+	float m_CamSpeed{5.0f};
 	float m_CamRotation{};
-	float m_CamRotationSpeed{ 1.0f };
-
+	float m_CamRotationSpeed{ 90.0f };
 public:
 	ExampleLayer()
 		: Layer("ExampleLayer"), m_Camera{ -3.2f, 3.2f, 1.8f, -1.8f }
@@ -86,17 +85,19 @@ public:
 		m_Camera.SetPosition(m_CamPos);
 	}
 
-	void OnUpdate() override
+	void OnUpdate(Dark::DeltaTime dt) override
 	{
 
-		//camera update
-		if (Dark::Input::IsKeyPressed(DK_KEY_D)) m_CamPos.x += m_CamSpeed;
-		if (Dark::Input::IsKeyPressed(DK_KEY_A)) m_CamPos.x -= m_CamSpeed;
-		if (Dark::Input::IsKeyPressed(DK_KEY_W)) m_CamPos.y += m_CamSpeed;
-		if (Dark::Input::IsKeyPressed(DK_KEY_S)) m_CamPos.y -= m_CamSpeed;
+		DARK_CLIENT_INFO("DeltaTime: Milliseconds: {0}ms", dt.GetMilliseconds());
 
-		if (Dark::Input::IsKeyPressed(DK_KEY_LEFT)) m_CamRotation += m_CamRotationSpeed;
-		if (Dark::Input::IsKeyPressed(DK_KEY_RIGHT)) m_CamRotation -= m_CamRotationSpeed;
+		//camera update
+		if (Dark::Input::IsKeyPressed(DK_KEY_RIGHT)) m_CamPos.x += m_CamSpeed * dt;
+		if (Dark::Input::IsKeyPressed(DK_KEY_LEFT )) m_CamPos.x -= m_CamSpeed * dt;
+		if (Dark::Input::IsKeyPressed(DK_KEY_UP   )) m_CamPos.y += m_CamSpeed * dt;
+		if (Dark::Input::IsKeyPressed(DK_KEY_DOWN )) m_CamPos.y -= m_CamSpeed * dt;
+
+		if (Dark::Input::IsKeyPressed(DK_KEY_J)) m_CamRotation += m_CamRotationSpeed * dt;
+		if (Dark::Input::IsKeyPressed(DK_KEY_L)) m_CamRotation -= m_CamRotationSpeed * dt;
 		//
 
 		m_Camera.SetPosition(m_CamPos);
@@ -108,7 +109,15 @@ public:
 
 		Dark::Renderer::Submit(m_Shader, m_VertexArray);
 
-		Dark::Renderer::Submit(m_Shader, m_SquareVA);
+		const glm::mat4& scale{ glm::scale(glm::mat4{1.0f}, glm::vec3{0.3f}) };
+		
+		for (int y{}; y++ < 20; ) {
+			for (int x{}; x++ < 20; ) {
+				glm::vec3 pos{ x * 0.33f, y * 0.33f, 0.0f };
+				const glm::mat4& transform{ glm::translate(glm::mat4{1.0f}, pos) * scale };
+				Dark::Renderer::Submit(m_Shader, m_SquareVA, transform);
+			}
+		}
 
 		Dark::Renderer::EndScene();
 	}

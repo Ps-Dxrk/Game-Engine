@@ -3,6 +3,8 @@
 #include "Dark/Core.h"
 #include "Dark/Events/Event.h"
 
+#include "Dark/Core/DeltaTime.h"
+
 namespace Dark {
 	class DARK_API Layer
 	{
@@ -17,7 +19,7 @@ namespace Dark {
 		virtual void OnAttach() {}
 		virtual void OnDetach() {}
 		virtual void OnImGuiRender() {}
-		virtual void OnUpdate() {}
+		virtual void OnUpdate(DeltaTime dt) {}
 		virtual void OnEvent(Event& e) {}
 
 		inline const std::string& GetLayerName() { return m_Name; }

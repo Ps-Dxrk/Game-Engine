@@ -33,6 +33,9 @@ namespace Dark {
 
 		//imgui layer
 		ImGuiLayer* m_ImGuiLayer;
+
+		//time stuff
+		float m_lastFrameTime{};
 	public:
 
 		Application();

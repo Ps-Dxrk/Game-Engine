@@ -6,6 +6,10 @@
 
 #include "Dark/Input.h"
 
+#include "Dark/Core/Timer.h"
+
+#include "Dark/Core/DeltaTime.h"
+
 namespace Dark {
 	Application* Application::s_Instance{ nullptr };
 
@@ -18,11 +22,15 @@ namespace Dark {
 		//creating window
 		m_Window = std::unique_ptr<Window>(Window::Create());
 		m_Window->SetEventCallBackFn(DARK_BIND_EVENT_FN(Application::OnEvent));
+		//m_Window->SetVsync(false);
 
 		//creating the imgui layer
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);
 
+		//timer
+		Timer::Init();
+		m_lastFrameTime = Timer::GetElapsedTime();
 		
 	}
 
@@ -33,10 +41,16 @@ namespace Dark {
 	void Application::Run() {
 
 		while(m_Running) {
-	
+
+			//******Delta Time Stuff*************************//
+			float curTime{ Timer::GetElapsedTime() };
+			DeltaTime delatTime{ curTime - m_lastFrameTime };
+			m_lastFrameTime = curTime;
+			//***********************************************//
+
 			//layer update
 			for (Layer* layer : m_LayerStack) {
-				layer->OnUpdate();
+				layer->OnUpdate(delatTime);
 			}
 
 			//imgui rendering for the layers

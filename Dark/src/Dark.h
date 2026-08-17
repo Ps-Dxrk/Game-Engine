@@ -8,6 +8,10 @@
 #include "Dark/Input.h"
 #include "Dark/Log.h"
 #include "Dark/Core.h"
+#include "Dark/Layer.h"
+
+#include "Dark/Core/Timer.h"
+#include "Dark/Core/DeltaTime.h"
 
 //----Renderer---------------------------------
 #include "Dark/Renderer/Renderer.h"
@@ -19,6 +23,7 @@
 
 #include "Dark/Renderer/OrthoGraphicCamera.h"
 #include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 //---------------------------------------------
 
 /*--Entry Point--*/

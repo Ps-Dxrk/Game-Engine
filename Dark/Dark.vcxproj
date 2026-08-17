@@ -157,6 +157,8 @@
     <ClInclude Include="src\Dark.h" />
     <ClInclude Include="src\Dark\Application.h" />
     <ClInclude Include="src\Dark\Core.h" />
+    <ClInclude Include="src\Dark\Core\Timer.h" />
+    <ClInclude Include="src\Dark\Core\DeltaTime.h" />
     <ClInclude Include="src\Dark\EntryPoint.h" />
     <ClInclude Include="src\Dark\Events\ApplicationEvent.h" />
     <ClInclude Include="src\Dark\Events\Event.h" />
@@ -190,6 +192,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Dark\Application.cpp" />
+    <ClCompile Include="src\Dark\Core\Timer.cpp" />
     <ClCompile Include="src\Dark\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\Dark\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\Dark\Input.cpp" />
