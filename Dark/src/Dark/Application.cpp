@@ -20,7 +20,7 @@ namespace Dark {
 		s_Instance = this;
 
 		//creating window
-		m_Window = std::unique_ptr<Window>(Window::Create());
+		m_Window = Scope<Window>(Window::Create());
 		m_Window->SetEventCallBackFn(DARK_BIND_EVENT_FN(Application::OnEvent));
 		//m_Window->SetVsync(false);
 

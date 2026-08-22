@@ -2,13 +2,15 @@
 
 #include <imgui/imgui.h>
 
+#include "Platform/OpenGL/OpenGLShader.h"
+
 class ExampleLayer : public Dark::Layer
 {
 private:
 
-	std::shared_ptr<Dark::VertexArray> m_VertexArray{};
-	std::shared_ptr<Dark::VertexArray> m_SquareVA{};
-	std::shared_ptr<Dark::Shader> m_Shader{};
+	Dark::Ref<Dark::VertexArray> m_SquareVA{};
+	Dark::Ref<Dark::Shader> m_Shader{}, m_TextureShader{};
+	Dark::Ref<Dark::Texture2D> m_Texture{};
 
 	//bg color
 	glm::vec4 bg_clear_color{};
@@ -19,53 +21,30 @@ private:
 	float m_CamSpeed{5.0f};
 	float m_CamRotation{};
 	float m_CamRotationSpeed{ 90.0f };
+
+	//color vectors for the squares
+	glm::vec4 m_Color{ 0.0f, 0.0f, 1.0f, 1.0f };
 public:
 	ExampleLayer()
 		: Layer("ExampleLayer"), m_Camera{ -3.2f, 3.2f, 1.8f, -1.8f }
 	{
 
-		m_VertexArray.reset(Dark::VertexArray::Create());
-
-		float vertices[21]{
-			0.25, -0.5, 0.0, 1.0, 0.0, 0.0, 1.0,
-			0.75, -0.5, 0.0, 0.0, 1.0, 0.0, 1.0,
-			0.5, 0.5, 0.0, 0.0, 0.0, 1.0, 1.0
-		};
-
-		std::shared_ptr<Dark::VertexBuffer> vertexBuffer{ Dark::VertexBuffer::Create(vertices, sizeof(vertices)) };
-
-		Dark::BufferLayout layout
-		{
-			{"aPos", Dark::ShaderDataType::Float3},
-			{"aColor", Dark::ShaderDataType::Float4}
-		};
-
-		vertexBuffer->SetLayout(layout);
-		m_VertexArray->AddVertexBuffer(vertexBuffer);
-
-		uint32_t indices[3]{
-			0, 1, 2
-		};
-
-		std::shared_ptr<Dark::IndexBuffer> indexBuffer{ Dark::IndexBuffer::Create(indices, 3) };
-		m_VertexArray->SetIndexBuffer(indexBuffer);
-
 		//square
-		m_SquareVA.reset(Dark::VertexArray::Create());
+		m_SquareVA = Dark::VertexArray::Create();
 
-		float verticesSQ[28]{
-			-0.5, -0.5, 0.0, 1.0, 0.0, 0.0, 1.0,
-			0.5, -0.5, 0.0, 0.0, 1.0, 0.0, 1.0,
-			0.5, 0.5, 0.0, 0.0, 0.0, 1.0, 1.0,
-			-0.5, 0.5, 0.0, 0.5, 0.5, 0.5, 1.0
+		float verticesSQ[20]{
+			-0.5f, -0.5f, 0.0f,  0.0f, 0.0f,
+			 0.5f, -0.5f, 0.0f,  1.0f, 0.0f,
+			 0.5f, 0.5f, 0.0f,   1.0f, 1.0f,
+			-0.5f, 0.5f, 0.0f,   0.0f, 1.0f
 		};
 
-		std::shared_ptr<Dark::VertexBuffer> squareVB{ Dark::VertexBuffer::Create(verticesSQ, sizeof(verticesSQ)) };
+		Dark::Ref<Dark::VertexBuffer> squareVB{ Dark::VertexBuffer::Create(verticesSQ, sizeof(verticesSQ)) };
 
 		Dark::BufferLayout layoutSQ
 		{
 			{"aPos", Dark::ShaderDataType::Float3},
-			{"aColor", Dark::ShaderDataType::Float4}
+			{"aTexCoords", Dark::ShaderDataType::Float2}
 		};
 
 		squareVB->SetLayout(layoutSQ);
@@ -75,11 +54,16 @@ public:
 			0, 1, 2, 2, 3, 0
 		};
 
-		std::shared_ptr<Dark::IndexBuffer> squareIB{ Dark::IndexBuffer::Create(indicesSQ, 6) };
+		Dark::Ref<Dark::IndexBuffer> squareIB{ Dark::IndexBuffer::Create(indicesSQ, 6) };
 		m_SquareVA->SetIndexBuffer(squareIB);
 
-		m_Shader = std::make_unique<Dark::Shader>("D:\\DarkEngine\\Dark\\bin\\Debug-windows-x86_64\\Sandbox\\Shader\\vert.glsl", "D:\\DarkEngine\\Dark\\bin\\Debug-windows-x86_64\\Sandbox\\Shader\\frag.glsl");
+		m_Shader = Dark::Shader::Create("Assets\\Shaders\\vert.glsl", "Assets\\Shaders\\frag.glsl");
 
+		//texture
+		m_TextureShader = Dark::Shader::Create("Assets\\Shaders\\texVert.glsl", "Assets\\Shaders\\texFrag.glsl");
+		std::static_pointer_cast<Dark::OpenGLShader>(m_TextureShader)->SetUniformInt("u_Texture", 0);
+
+		m_Texture = Dark::Texture2D::Create("Assets\\Textures\\adawong.jpg");
 
 		//camera stuff
 		m_Camera.SetPosition(m_CamPos);
@@ -107,10 +91,11 @@ public:
 
 		Dark::Renderer::BeginScene(m_Camera);
 
-		Dark::Renderer::Submit(m_Shader, m_VertexArray);
+		std::static_pointer_cast<Dark::OpenGLShader>(m_Shader)->Bind();
+		std::static_pointer_cast<Dark::OpenGLShader>(m_Shader)->SetUniformFloat4("u_Color", m_Color);
 
 		const glm::mat4& scale{ glm::scale(glm::mat4{1.0f}, glm::vec3{0.3f}) };
-		
+	
 		for (int y{}; y++ < 20; ) {
 			for (int x{}; x++ < 20; ) {
 				glm::vec3 pos{ x * 0.33f, y * 0.33f, 0.0f };
@@ -118,6 +103,9 @@ public:
 				Dark::Renderer::Submit(m_Shader, m_SquareVA, transform);
 			}
 		}
+
+		m_Texture->Bind();
+		Dark::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4{ 1.0f }, glm::vec3{ 5.0f }));
 
 		Dark::Renderer::EndScene();
 	}
@@ -129,7 +117,10 @@ public:
 	void OnImGuiRender() override
 	{
 		ImGui::Begin(m_Name.c_str());
-			ImGui::ColorPicker4("BgClearColor", &bg_clear_color.x);
+			ImGui::ColorPicker4("BgClearColor", glm::value_ptr(bg_clear_color));
+
+			ImGui::ColorEdit3("Tile Color", glm::value_ptr(m_Color));
+
 		ImGui::End();
 	}
 };

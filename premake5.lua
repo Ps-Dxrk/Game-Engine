@@ -23,6 +23,7 @@ IncludeDir["GLFW"] = "Dark/vendor/GLFW/include"
 IncludeDir["GLAD"] = "Dark/vendor/GLAD/include"
 IncludeDir["ImGui"] = "Dark/vendor/ImGui"
 IncludeDir["glm"] = "Dark/vendor/glm"
+IncludeDir["stb_image"] = "Dark/vendor/stb_image"
 
 group "Dependencies"
     include "Dark/vendor/GLFW"
@@ -45,7 +46,11 @@ project "Dark"
 
     files {
         "%{prj.name}/src/**.h",
-        "%{prj.name}/src/**.cpp"
+        "%{prj.name}/src/**.cpp",
+        "%{prj.name}/vendor/stb_image/**.h",
+        "%{prj.name}/vendor/stb_image/**.cpp",
+        "%{prj.name}/vendor/glm/glm/**.hpp",
+        "%{prj.name}/vendor/glm/glm/**.inl"
     }
 
     includedirs {
@@ -54,7 +59,8 @@ project "Dark"
         "%{IncludeDir.GLFW}",
         "%{IncludeDir.GLAD}",
         "%{IncludeDir.ImGui}",
-        "%{IncludeDir.glm}"
+        "%{IncludeDir.glm}",
+        "%{IncludeDir.stb_image}"
     }
 
     links {

@@ -1,6 +1,8 @@
 #include "dpch.h"
 #include "Renderer.h"
 
+#include "Platform/OpenGL/OpenGLShader.h"
+
 namespace Dark {
 
 	Renderer::SceneData* Renderer::s_SceneData{ new SceneData() };
@@ -15,11 +17,11 @@ namespace Dark {
 
 	}
 
-	void Renderer::Submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<VertexArray>& vertexArray, const glm::mat4& transform)
+	void Renderer::Submit(const Ref<Shader>& shader, const Ref<VertexArray>& vertexArray, const glm::mat4& transform)
 	{
 		shader->Bind();
-		shader->SetUniformMatrix("u_ProjectionView", s_SceneData->m_ProjectionViewMatrix);
-		shader->SetUniformMatrix("u_Transform", transform);
+		std::static_pointer_cast<OpenGLShader>(shader)->SetUniformMatrix("u_ProjectionView", s_SceneData->m_ProjectionViewMatrix);
+		std::static_pointer_cast<OpenGLShader>(shader)->SetUniformMatrix("u_Transform", transform);
 
 		vertexArray->Bind();
 		RenderCommand::DrawIndexed(vertexArray);

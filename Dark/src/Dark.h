@@ -20,10 +20,12 @@
 #include "Dark/Renderer/VertexArray.h"
 #include "Dark/Renderer/Buffer.h"
 #include "Dark/Renderer/Shader.h"
+#include "Dark/Renderer/Texture.h"
 
 #include "Dark/Renderer/OrthoGraphicCamera.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 //---------------------------------------------
 
 /*--Entry Point--*/

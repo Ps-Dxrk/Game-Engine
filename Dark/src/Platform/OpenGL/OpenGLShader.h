@@ -1,0 +1,38 @@
+#pragma once
+
+#include "Dark/Renderer/Shader.h"
+#include <glm/glm.hpp>
+
+namespace Dark {
+
+	class OpenGLShader : public Shader {
+
+	private:
+		uint32_t m_RendererID{};
+
+	public:
+		OpenGLShader(const std::string& vertexShaderFP, const std::string& fragmentShaderFP);
+		virtual ~OpenGLShader();
+
+		virtual void Bind() const override;
+		virtual void UnBind() const override;
+
+		//uniforms
+		void SetUniformMatrix(const std::string& name, const glm::mat4& mat);
+		void SetUniformMatrix(const std::string& name, const glm::mat3& mat);
+
+		void SetUniformFloat4(const std::string& name, const glm::vec4& vec4);
+		void SetUniformFloat3(const std::string& name, const glm::vec3& vec3);
+		void SetUniformFloat2(const std::string& name, const glm::vec2& vec2);
+		void SetUniformFloat(const std::string& name, float value);
+		void SetUniformInt(const std::string& name, int value);
+		void SetUniformUint(const std::string& name, uint32_t value);
+
+	private:
+
+		std::string parseShader(const std::string& filepath);
+		uint32_t CompileShader(const std::string& vertexShaderFP, const std::string& fragmentShaderFP);
+		bool CheckCompileError(const std::string& shaderType, uint32_t shader);
+	};
+
+}

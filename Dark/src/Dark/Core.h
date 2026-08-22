@@ -29,3 +29,13 @@
 #define BIT(x) (1 << x)
 
 #define DARK_BIND_EVENT_FN(function) std::bind(&function, this, std::placeholders::_1)
+
+namespace Dark {
+
+	template<typename T>
+	using Ref = std::shared_ptr<T>; //Reference(std::shared_ptr)
+
+	template<typename T>
+	using Scope = std::unique_ptr<T>; //Scoped/raw(std::unique_ptr)
+
+}

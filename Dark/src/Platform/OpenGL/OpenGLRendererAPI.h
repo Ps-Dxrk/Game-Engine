@@ -11,7 +11,7 @@ namespace Dark {
 	public:
 
 		virtual void Clear(const glm::vec4& p_Color) override;
-		virtual void DrawIndexed(const std::shared_ptr<VertexArray>& vertexArray) override;
+		virtual void DrawIndexed(const Ref<VertexArray>& vertexArray) override;
 
 	};
 
